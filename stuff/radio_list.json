@@ -1,0 +1,28 @@
+{
+  "radioList": {
+    "list1": {
+      "name": "Listen.moe (JP)",
+      "audioLink": "https://listen.moe/opus"
+    },
+    "list2": {
+      "name": "Listen.moe (KR)",
+      "audioLink": "https://listen.moe/kpop/stream"
+    },
+    "list3": {
+      "name": "Gensokyo Radio",
+      "audioLink": "http://stream.gensokyoradio.net:8000/stream/3/"
+    },
+    "list4": {
+      "name": "Phoenix Radio Bali",
+      "audioLink": "http://50.97.122.58:8250/;stream.mp3"
+    },
+    "list5": {
+      "name": "FBI Bali Radio",
+      "audioLink": "http://server.fbifm.com:9180/fbibaliradio"
+    },
+    "list6": {
+      "name": "Gema Merdeka Ngetrend",
+      "audioLink": "http://110.44.169.32/gema"
+    }
+  }
+}
