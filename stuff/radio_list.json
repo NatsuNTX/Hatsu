@@ -2,7 +2,7 @@
   "radioList": {
     "list1": {
       "name": "Listen.moe (JP)",
-      "audioLink": "https://listen.moe/opus"
+      "audioLink": "https://listen.moe/stream"
     },
     "list2": {
       "name": "Listen.moe (KR)",
