@@ -19,4 +19,3 @@ class HatsuEmbed extends MessageEmbed {
     }
 }
 module.exports = HatsuEmbed
-//TODO:Try to fix Embed Error in Glitch
