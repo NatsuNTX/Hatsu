@@ -8,7 +8,7 @@ module.exports = {
     async execute(msg) {
         //Check if the User is an Guild Owner or
         //the User have Permission ["Manage Member"]
-        if (msg.member.guild.ownerID != msg.author.id || !msg.member.hasPermission("MANAGE_CHANNELS")) {
+        if (msg.member.guild.ownerID !== msg.author.id || !msg.member.hasPermission("MANAGE_CHANNELS")) {
             console.log(clr.magenta(`Command ${this.name} ABORT!,Reason: ${msg.author.username} is Not Have Permission to use it, or ${msg.author.username} is Not the Guild Owner!`));
             await msg.channel.send(`${msg.author} You **Dont** have Permission to Use it!`);
             return
@@ -31,26 +31,21 @@ module.exports = {
             return msg.channel.send(kickHelp)
         }
         //No Reason? Tell them to Add it!
-        if (!reason2) return msg.channel.send(`${msg.author} Please add a Reason!, So iam know why you want to kick ***"${mention.username}"***`)
+        if (!reason2) return msg.channel.send(`${msg.author} Please add a Reason!, So iam know why you want to kick ***"${mention.displayName}"***`)
 
         //Time to Kick
         //Check if the Member is Can be Kick or Not
-        /*
-        if (msg.member.kickable === false) {
-            return msg.channel.send(`I Cant Kick **${mention.username}** Because its Too ***POWERFULLLLLL***`)
-        }
-         */
         switch (mention.kickable){
             case false:
-                await msg.channel.send(`I Cant Kick **${mention.username}** Because its Too ***POWERFULLLLLL***`);
+                await msg.channel.send(`I Cant Kick **${mention.displayName}** Because its Too ***POWERFULLLLLL***`);
                 break
             case true:
                 try {
                     //Check if The Client Have Kick Permission
-                    await msg.member.kick(reason2).then(kickMember => {
+                    await mention.kick(reason2).then(kickMember => {
                         let kickSucces = new hatsuEmbed({
                             title: 'Kick Info',
-                            description: `Successfully Kick ${kickMember.displayName}`,
+                            description: `Successfully Kick **${kickMember.displayName}**`,
                             fields: [{name: 'Username', value: `***${kickMember.displayName}***`, inline: true},
                                 {name: 'Reason', value: `***${reason2}***`, inline: true}],
                             color: "AQUA",

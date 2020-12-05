@@ -2,6 +2,7 @@
 const {radioList} = require('../stuff/radio_list.json'); //Get Radio List
 const hatsuEmbed = require('../etc/HatsuEmbed'); //Embeddd
 const del = require('del'); //Delete File Module (Cuz i Suck use FS)
+const clr = require('chalk');
 const fs = require('fs');
 
 module.exports = {
@@ -39,6 +40,12 @@ module.exports = {
                 msg.client.voice.connections.filter(conn => {
                     theVoiceID.push(conn.channel.id)
                 });
+                if (!fs.existsSync('./hatsutemp')) {
+                    console.log(clr.yellow('Cannot Find "hatsutemp" Folder!,Creating!'));
+                    fs.mkdir('./hatsutemp', err => {
+                        if (err) console.log(clr.red(`Something Wrong that Prevent Hatsu to Create "hatsutemp" Folder,${err}`));
+                    });
+                }
                 if (!fs.existsSync(`./hatsutemp/radio_ID_${msg.guild.id}.inf`)) {
                     const file = fs.createWriteStream(`./hatsutemp/radio_ID_${msg.guild.id}.inf`, {encoding: "utf16le"});
                     file.on('error', (err => {

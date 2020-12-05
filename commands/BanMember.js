@@ -8,7 +8,7 @@ module.exports = {
     async execute(msg) {
         //Check if the User is an Guild Owner or
         //the User have Permission ["Manage Member"]
-        if (msg.member.guild.ownerID != msg.author.id || !msg.member.hasPermission("MANAGE_CHANNELS")) {
+        if (msg.member.guild.ownerID !== msg.author.id || !msg.member.hasPermission("MANAGE_CHANNELS")) {
             console.log(clr.magenta(`Command ${this.name} ABORT!,Reason: ${msg.author.username} is Not Have Permission to use it, or ${msg.author.username} is Not the Guild Owner!`));
             await msg.channel.send(`${msg.author} You **Dont** have Permission to Use it!`);
             return
@@ -31,26 +31,21 @@ module.exports = {
             return msg.channel.send(banHelp)
         }
         //No Reason? Tell them to Add it!
-        if (!reason2) return msg.channel.send(`${msg.author} Please add a Reason!, So iam know why you want to Ban ***"${mention.username}"***`)
+        if (!reason2) return msg.channel.send(`${msg.author} Please add a Reason!, So iam know why you want to Ban ***"${mention.displayName}"***`)
 
         //Time to Give it Tor Hammer
         //Check if the Member is Can be Kick or Not
-        /*
-        if (msg.member.kickable === false) {
-            return msg.channel.send(`I Cant Kick **${mention.username}** Because its Too ***POWERFULLLLLL***`)
-        }
-         */
         switch (mention.bannable){
             case false:
-                await msg.channel.send(`I Cant Ban **${mention.username}** Because its Too ***POWERFULLLLLL***`);
+                await msg.channel.send(`I Cant Ban **${mention.displayName}** Because its Too ***POWERFULLLLLL***`);
                 break
             case true:
                 //Ban the Selected Member and Delete there Message overpass 1 Week
                 try {
-                    await msg.member.ban({days: 7, reason: reason2}).then(banMember => {
+                    await mention.ban({days: 7, reason: reason2}).then(banMember => {
                         let banSucces = new hatsuEmbed({
                             title: 'Ban Info',
-                            description: `Successfully Ban ${banMember.displayName}`,
+                            description: `Successfully Ban **${banMember.displayName}**`,
                             fields: [{name: 'Username', value: `***${banMember.displayName}***`, inline: true},
                                 {name: 'Reason', value: `***${reason2}***`, inline: true}],
                             color: "AQUA",
