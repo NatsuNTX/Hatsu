@@ -1,7 +1,8 @@
 //Libs
 require('dotenv').config()
 const hatsu = require('discord.js');
-//const {ownerInfo} = require('../stuff/Hatsuku_Owner.json');
+const {Zuikaku} = require('zuikaku'); //OSU Wrapper
+
 //Some Class inside ETC folder
 const EHandler = require('../etc/EventHandler'); //Event Handler
 const CMDHandler = require('../etc/Commands'); //Command Handler
@@ -14,6 +15,7 @@ class Hatsuku extends hatsu.Client{
     constructor(hatsuOption) {
         super(hatsuOption);
         //Load Hatsuku Method
+        this.zui = new Zuikaku(process.env.OSU_API, 5000); //OSU Wrapper
         newDB(process.env.DATABASE); //Database
         new EHandler(this); //EventHandler
         new CMDHandler(this); //CommandHandler

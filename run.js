@@ -1,4 +1,6 @@
 //Libs
+const express = require('express'); //Express Module
+const eprs = express();
 const Hatsu = require('./Hatsu/hatsuku') //Get Client
 const clr = require('chalk');
 const {exit} = require('process')
@@ -18,6 +20,14 @@ if (isNaN(ownerInfo.id) === true || ownerInfo.id.length > 18 || ownerInfo.id.len
 }
 
 //Run Hatsuku
-const hatsuku = new Hatsu({retryLimit: 14, messageCacheMaxSize: 340, messageSweepInterval: 600, restRequestTimeout: 8600});
+const hatsuku = new Hatsu({retryLimit: 14, messageCacheMaxSize: 720, messageSweepInterval: 120, restRequestTimeout: 8600, messageCacheLifetime: 76});
 
 hatsuku.login(process.env.TOKEN);
+//Express Code
+eprs.get('/', (req, res) => {
+    res.send('<h1>Hatsuku is Running</h1>' +
+        '<p>Hemm You Found this Page but its ok!,this page show you the bot is successfuly Running</p>');
+});
+const prt = 4131
+eprs.listen(prt);
+console.log(`Server is Running on Port:${prt}`)

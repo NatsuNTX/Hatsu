@@ -9,6 +9,7 @@ function database(databaseURI) {
             useFindAndModify: true,
             poolSize: 8,
             autoReconnect: true
+
         });
         return console.log(clr.green('Connected to Database'))
     } catch (e) {
