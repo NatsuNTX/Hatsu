@@ -6,7 +6,6 @@ const neko = new nekos();
 
 module.exports = {
     name: 'neko',
-    aliases: [''],
     description: 'Give You Neko :)',
     async execute(msg) {
         //Generate Random Number Between 1 and 2
@@ -19,7 +18,7 @@ module.exports = {
                 case 1:
                     neko.sfw.neko().then(res => {
                         const neko = new hatsuEmbed({
-                            title: 'Neko',
+                            title: `Neko [${msg.author.username}]`,
                             color: "AQUA",
                             image: {url: res.url}
                         });
@@ -30,7 +29,7 @@ module.exports = {
                 case 2:
                     neko.sfw.nekoGif().then(res => {
                         const neko = new hatsuEmbed({
-                            title: 'Neko',
+                            title: `Neko [${msg.author.username}]`,
                             color: "AQUA",
                             image: {url: res.url}
                         });

@@ -42,7 +42,7 @@ module.exports = {
                 },
                 GuildID: msg.guild.id
             });
-            newPrefix.save();
+            await newPrefix.save();
         } else {
             await msg.channel.send(`:white_check_mark: Set the Prefix for **${msg.guild.name}** to ${args[0]}`);
 
@@ -53,7 +53,7 @@ module.exports = {
                 },
                 GuildID: msg.guild.id
             });
-            newPrefix.save();
+            await newPrefix.save();
         }
 
 
