@@ -2,15 +2,17 @@
 const {join} = require('path');
 const {Collection} = require('discord.js');
 const fs = require('fs');
-const {exit} = require('process')
+const {exit} = require('process');
+const hatsuEmbed = require('./HatsuEmbed');
 const clr = require('chalk');
-const prefix = require('../models/Model_Prefix')
+const prefix = require('../models/Model_Prefix');
+const nsfw = require('../models/Model_NSFW')
 require('dotenv').config();
 
 class CommandHandler {
     constructor(client) {
         this.client = client
-        this.collection = new Collection();
+        this.client.collection = new Collection()
         //Run the Method
         this.loadTheCommand()
         this.runTheCommand()
@@ -19,7 +21,7 @@ class CommandHandler {
         const getCommand = fs.readdirSync(join(__dirname, '../commands/'), {encoding: 'utf-8'}).filter(files => files.endsWith('.js'));
         for (const command of getCommand) {
             const commands = require(join(__dirname, '../commands/', `${command}`))
-            this.collection.set(commands.name, commands);
+            this.client.collection.set(commands.name, commands);
             console.log(clr.yellow(`Loading Commands:${commands.name}`))
         }
     }
@@ -41,15 +43,37 @@ class CommandHandler {
                 const commandName = args.shift().toLowerCase();
 
                 const command =
-                    this.collection.get(commandName) || this.collection.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+                    this.client.collection.get(commandName) || this.client.collection.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
                 if (!command) {
                     await msg.channel.send(`${msg.author} i Can't Find that Command!`);
                     console.log(clr.magenta(`Cannot Find Command:"${commandName}" Requested From: ${msg.guild.name} With ID:${msg.guild.id}`));
                     return
                 }
+                //NSFW Checker
+                const nsfwData = await nsfw.findOne({
+                    GuildID: msg.guild.id
+                });
+                if (command.name === "hentaineko" || command.aliases === "hneko"){
+                    if (!nsfwData) {
+                        const nsfwVerify = new hatsuEmbed({
+                           title: 'NSFW Command Verification',
+                           color: "AQUA",
+                           description: `Looks like this is the **first time** this command has been run in this guild, before I can execute that command, I have to get permission from the ***guild owner*** first!, if you are a guild owner please type ***${DBPrefix}nsfw auth*** to verify!`,
+                           thumbnail: {url: this.client.user.displayAvatarURL({dynamic: true,size:512,format:"jpeg"})}
+                        });
+                        return msg.channel.send(nsfwVerify);
+                    } else {
+                        const allowNSFW = nsfwData.allowNSFW
+                        switch (allowNSFW) {
+                            case false:
+                                return msg.reply('NSFW Command is **Disable** for This Guild');
+                        }
+                    }
+                }
+
                 //If User Mention the Bot than Send Some Bot Information
                 try {
-                    await command.execute(msg, args);
+                    await command.execute(msg, args, );
                     console.log(clr.blue(`Execute ${commandName} Command!`));
                 } catch (e) {
                     console.log(clr.red(`Something Wrong when try to Run ${commandName}!,Error:${e}`));
@@ -66,11 +90,32 @@ class CommandHandler {
                 const commandName = args.shift().toLowerCase();
 
                 const command =
-                    this.collection.get(commandName) || this.collection.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+                    this.client.collections.get(commandName) || this.client.collections.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
                 if (!command) {
                     await msg.channel.send(`${msg.author} i Can't Find that Command!`);
                     console.log(clr.magenta(`Cannot Find Command:"${commandName}" Requested From: ${msg.guild.name} With ID:${msg.guild.id}`));
                     return
+                }
+                //NSFW Checker
+                const nsfwData = await nsfw.findOne({
+                    GuildID: msg.guild.id
+                });
+                if (command.name === "hentaineko" || command.aliases === "hneko"){
+                    if (!nsfwData) {
+                        const nsfwVerify = new hatsuEmbed({
+                            title: 'NSFW Command Verification',
+                            color: "AQUA",
+                            description: `Looks like this is the **first time** this command has been run in this guild, before I can execute that command, I have to get permission from the ***guild owner*** first!, if you are a guild owner please type ***${DBPrefix}nsfw auth*** to verify!`,
+                            thumbnail: {url: this.client.user.displayAvatarURL({dynamic: true,size:512,format:"jpeg"})}
+                        });
+                        return msg.channel.send(nsfwVerify);
+                    } else {
+                        const allowNSFW = nsfwData.allowNSFW
+                        switch (allowNSFW) {
+                            case false:
+                                return msg.reply('NSFW Command is **Disable** for This Guild');
+                        }
+                    }
                 }
                 //If User Mention the Bot than Send Some Bot Information
                 try {
