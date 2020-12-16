@@ -7,6 +7,8 @@ const neko = new nekos();
 module.exports = {
     name: 'neko',
     description: 'Give You Neko :)',
+    aliases: [""],
+    cooldown: 5,
     async execute(msg) {
         //Generate Random Number Between 1 and 2
         let randomNumber = Math.floor(Math.random() * (3 - 1) + 1)

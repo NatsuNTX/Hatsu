@@ -3,9 +3,10 @@ const hatsuEmbed = require('../etc/HatsuEmbed'); //Embeddd
 module.exports = {
     name: 'ping',
     aliases: ['ping'],
+    cooldown: 5,
     description: 'Check latency Betwen Your Server and Me',
     execute(msg) {
-    const wait = msg.channel.send('Checking Latency').then(update => {
+    msg.channel.send('Checking Latency').then(update => {
         let updateEmbed = new hatsuEmbed({
             title: `:signal_strength: Latency Between ***${msg.guild.name}*** and Me`,
             thumbnail: {url: msg.client.user.displayAvatarURL({dynamic: true, format: "webp", size: 512})},

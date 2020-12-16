@@ -1,12 +1,12 @@
 //Libs
 const PrefixModel = require('../models/Model_Prefix'); //PREFIX MODEL
-const hatsuEmbed = require('../etc/HatsuEmbed'); //EMBED
 
 require('dotenv').config()
 
 module.exports = {
     name: 'prefix',
     aliases: ["pfx"],
+    cooldown: 60,
     description: 'Set Your Own Custom Prefix',
     async execute(msg, args) {
 

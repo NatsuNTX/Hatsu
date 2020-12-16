@@ -4,6 +4,7 @@ const hatsuEmbed = require('../etc/HatsuEmbed'); //Embed
 module.exports = {
     name: 'showavatar',
     aliases: ['pr', 'pp', 'sa'],
+    cooldown: 4,
     description: 'Show Avatar from another member or YourSelf',
     execute(msg) {
         if (!msg.mentions.users.first()) {

@@ -4,6 +4,7 @@ const hatsuEmbed = require('../etc/HatsuEmbed'); //EMBEEDDD
 module.exports = {
     name: 'osu',
     aliases: '',
+    cooldown: 10,
     description: 'Get Information About Osu Player',
     async execute(msg, args) {
         //Some Random Variable

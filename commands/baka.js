@@ -1,5 +1,4 @@
 //Libs
-const clr = require('chalk')// Text Color
 const nekos = require('nekos.life'); //Neko Wrapper
 const hatsuEmbed = require('../etc/HatsuEmbed'); //Embed
 
@@ -9,6 +8,7 @@ const Neko = new nekos();
 module.exports = {
     name: 'baka',
     aliases: [""],
+    cooldown: 7,
     description: 'Say Baka to Someone?',
     async execute(msg) {
 

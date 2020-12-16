@@ -13,6 +13,7 @@ class CommandHandler {
     constructor(client) {
         this.client = client
         this.client.collection = new Collection()
+        this.cooldowns = new Collection()
         //Run the Method
         this.loadTheCommand()
         this.runTheCommand()
@@ -49,11 +50,29 @@ class CommandHandler {
                     console.log(clr.magenta(`Cannot Find Command:"${commandName}" Requested From: ${msg.guild.name} With ID:${msg.guild.id}`));
                     return
                 }
+                //Cooldowns Thing
+                if (!this.cooldowns.has(command.name)) {
+                    this.cooldowns.set(command.name, new Collection())
+                }
+                const now = Date.now();
+                const timeStamp = this.cooldowns.get(command.name);
+                const coolAmount = (command.cooldown || 1) * 1000;
+
+                if (timeStamp.has(msg.author.id)) {
+                    const expire = timeStamp.get(msg.author.id) + coolAmount
+                    if (now < expire) {
+                        const remaining = (expire - now) / 1000
+                        return msg.reply(`Whoa..Whoa... its to fast!,Please wait for **${remaining.toFixed(0)} Second**, Before try to use ***${command.name}*** command again!`);
+                    }
+                }
+                timeStamp.set(msg.author.id, now);
+                setTimeout(() => timeStamp.delete(msg.author.id), coolAmount);
+
                 //NSFW Checker
                 const nsfwData = await nsfw.findOne({
                     GuildID: msg.guild.id
                 });
-                if (command.name === "hentaineko" || command.aliases === "hneko"){
+                if (command.name === ["hentaineko", "hentai"] || command.aliases === "hneko"){
                     if (!nsfwData) {
                         const nsfwVerify = new hatsuEmbed({
                            title: 'NSFW Command Verification',
@@ -90,17 +109,34 @@ class CommandHandler {
                 const commandName = args.shift().toLowerCase();
 
                 const command =
-                    this.client.collections.get(commandName) || this.client.collections.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+                    this.client.collection.get(commandName) || this.client.collection.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
                 if (!command) {
                     await msg.channel.send(`${msg.author} i Can't Find that Command!`);
                     console.log(clr.magenta(`Cannot Find Command:"${commandName}" Requested From: ${msg.guild.name} With ID:${msg.guild.id}`));
                     return
                 }
+                //Cooldowns Thing
+                if (!this.cooldowns.has(command.name)) {
+                    this.cooldowns.set(command.name, new Collection())
+                }
+                const now = Date.now();
+                const timeStamp = this.cooldowns.get(command.name);
+                const coolAmount = (command.cooldown || 1) * 1000;
+
+                if (timeStamp.has(msg.author.id)) {
+                    const expire = timeStamp.get(msg.author.id) + coolAmount
+                    if (now < expire) {
+                        const remaining = (expire - now) / 1000
+                        return msg.reply(`Whoa..Whoa... its to fast!,Please wait for **${remaining.toFixed(0)}** Second, Before try to use ***${command.name}*** command again!`);
+                    }
+                }
+                timeStamp.set(msg.author.id, now);
+                setTimeout(() => timeStamp.delete(msg.author.id), coolAmount);
                 //NSFW Checker
                 const nsfwData = await nsfw.findOne({
                     GuildID: msg.guild.id
                 });
-                if (command.name === "hentaineko" || command.aliases === "hneko"){
+                if (command.name === ["hentaineko", "hentai"] || command.aliases === "hneko"){
                     if (!nsfwData) {
                         const nsfwVerify = new hatsuEmbed({
                             title: 'NSFW Command Verification',
