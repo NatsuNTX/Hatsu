@@ -217,7 +217,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "NOPE"
+    "test": "NOPE",
+	"start": "node run.js"
   },
   "repository": {
     "type": "git",

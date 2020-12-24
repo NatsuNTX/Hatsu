@@ -1,6 +1,7 @@
 //Libs
 const express = require('express'); //Express Module
 const eprs = express();
+const {ISC} = require('./stuff/license_data.json'); //License
 const Hatsu = require('./Hatsu/hatsuku') //Get Client
 const clr = require('chalk');
 const {exit} = require('process')
@@ -18,6 +19,11 @@ if (isNaN(ownerInfo.id) === true || ownerInfo.id.length > 18 || ownerInfo.id.len
     console.log(clr.red('Please Input Correct Account ID & Make sure is 18 character!,No More No Less'));
     exit(6);
 }
+//Show License Notice
+console.log(clr.green(ISC));
+
+setTimeout(() => {
+
 
 //Run Hatsuku
 const hatsuku = new Hatsu({retryLimit: 14, messageCacheMaxSize: 720, messageSweepInterval: 120, restRequestTimeout: 8600, messageCacheLifetime: 76});
@@ -30,4 +36,5 @@ eprs.get('/', (req, res) => {
 });
 const prt = 4131
 eprs.listen(prt);
-console.log(`Server is Running on Port:${prt}`)
+console.log(`Server is Running on Port:${prt}`);
+}, 5000)
