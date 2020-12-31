@@ -11,7 +11,7 @@ module.exports = {
     async execute(msg, args) {
 
         //Check if the User Has Manage_Server Permission or administrator
-        if (!msg.member.permissions.has('MANAGE_GUILD')) return await msg.channel.send(`${msg.author} Nope... Nope... its to dangers`), await msg.channel.send(`https://tenor.com/view/nope-anime-no-gif-15075442`);
+        if (!msg.member.permissions.has('MANAGE_GUILD') || msg.author.id != msg.guild.ownerID) return await msg.channel.send(`${msg.author} Nope... Nope... its to dangers`), await msg.channel.send(`https://tenor.com/view/nope-anime-no-gif-15075442`);
         const prfxData = await PrefixModel.findOne({
             GuildID: msg.guild.id
         });
