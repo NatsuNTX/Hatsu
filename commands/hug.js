@@ -28,7 +28,7 @@ module.exports = {
             sendback.startTyping();
             Asuna.asunaImg('hug').then(image => {
                 const hugSomeone = new embed({
-                    description: `***${msg.author} huge ${mentionUser}***`,
+                    description: `***${msg.author} hugs ${mentionUser}***`,
                     image: {url: image},
                 });
                 sendback.send(hugSomeone);

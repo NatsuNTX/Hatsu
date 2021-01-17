@@ -1,6 +1,10 @@
 //Libs
 const PlayControl = require('../etc/Player Control'); //Player Control
 const clr = require('chalk');
+const hatsuLog = require('../etc/Hatsu Logger');
+
+//Logger
+const hatsuNodeDebug = hatsuLog.getLogger("HatsuMusicDebug");
 
 class PlayerCenter extends Map {
     constructor(client, opts) {
@@ -17,7 +21,7 @@ class PlayerCenter extends Map {
                     guildID: msg.guild.id,
                     voiceChannelID: msg.member.voice.channelID
                 });
-                console.log(clr.magenta(`Connection Successfully Make on ${msg.guild.name}`));
+                hatsuNodeDebug.debug(`Connection Successfully Make on ${msg.guild.name}`);
                 const PlayCtrl = new PlayControl({
                     client: this.client,
                     guild: msg.guild,

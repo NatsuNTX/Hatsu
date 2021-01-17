@@ -1,6 +1,11 @@
 //Libs
 const fs = require('fs'); //File System
 const clr = require('chalk'); //Text Color
+const hatsuLog = require('./Hatsu Logger');
+
+//Logger
+const hatsuDebug = hatsuLog.getLogger("HatsuDebug");
+const hatsuError = hatsuLog.getLogger("HatsuError");
 
 class eventHandler {
     constructor(client) {
@@ -10,7 +15,7 @@ class eventHandler {
     }
     okEvent() {
         fs.readdir('./events', (err, data) => {
-            if (err) return console.log(clr.red(`Failed to Run EventHandler!, Error:${err}`));
+            if (err) return hatsuError.error(`Failed to Run EventHandler!, Error:${err}`);
             data.forEach(file => {
                 if (!file.endsWith('.js')) return //Nothing
                 const events = require(`../events/${file}`);
@@ -18,8 +23,8 @@ class eventHandler {
                 let eventName = file.split('.')[0];
                 //Run the Event
                 this.client.on(eventName, events.bind(null, this.client));
-                console.log(clr.yellow(`Loading Event:${eventName}`))
-            })
+                hatsuDebug.debug(`Loading Event:${eventName}`);
+            });
         });
     }
 }

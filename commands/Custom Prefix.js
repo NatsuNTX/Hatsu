@@ -16,6 +16,7 @@ module.exports = {
             GuildID: msg.guild.id
         });
         let currentPrf = []
+
         if (!prfxData) {
             //if No Data than Put Default Prefix to Array
             currentPrf.push(process.env.PREFIX);

@@ -3,11 +3,17 @@ const {join} = require('path');
 const {Collection} = require('discord.js');
 const fs = require('fs');
 const {exit} = require('process');
-const hatsuEmbed = require('./HatsuEmbed');
+const hatsuLog = require('./Hatsu Logger');
+//const hatsuEmbed = require('./HatsuEmbed');
 const clr = require('chalk');
 const prefix = require('../models/Model_Prefix');
-const nsfw = require('../models/Model_NSFW')
+//const nsfw = require('../models/Model_NSFW')
 require('dotenv').config();
+
+//Logger
+const hatsuDebug = hatsuLog.getLogger("HatsuDebug");
+const hatsuError = hatsuLog.getLogger("HatsuError");
+const hatsuInfo = hatsuLog.getLogger("HatsuInfo");
 
 class CommandHandler {
     constructor(client) {
@@ -23,22 +29,22 @@ class CommandHandler {
         for (const command of getCommand) {
             const commands = require(join(__dirname, '../commands/', `${command}`))
             this.client.collection.set(commands.name, commands);
-            console.log(clr.yellow(`Loading Commands:${commands.name}`))
+            hatsuDebug.debug(`Loading Commands [${commands.name}]`);
         }
     }
     runTheCommand() {
         this.client.on('message', async msg => {
 
             const prefixData = await prefix.findOne({
-                //Get Guild ID from Database
+                //Find Guild ID in Database
                 GuildID: msg.guild.id
             });
 
             //if Hatsu Find the GuildID than Try to Get the Prefix From Database
-            if (prefixData) {
-                let DBPrefix = prefixData.prefix.CustomPrefix
+
+                let DBPrefix = prefixData ? prefixData.prefix.CustomPrefix : process.env.PREFIX
                 //Set Prefix
-                if (!msg.content.startsWith(DBPrefix) || msg.author.bot ||!msg.guild) return
+                if (!msg.content.startsWith(DBPrefix) || msg.author.bot || !msg.guild) return
                 const args = msg.content.slice(DBPrefix.length).trim().split(" ");
                 //Make to LowerCase
                 const commandName = args.shift().toLowerCase();
@@ -69,65 +75,16 @@ class CommandHandler {
                 timeStamp.set(msg.author.id, now);
                 setTimeout(() => timeStamp.delete(msg.author.id), coolAmount);
 
-                console.log(command.name + " " + command.aliases)
-                if(command.aliases == "hneko") {
-                    console.log('DAA TA FOR SURE')
-                }
-
                 //If User Mention the Bot than Send Some Bot Information
                 try {
                     await command.execute(msg, args);
-                    console.log(clr.blue(`Execute ${commandName} Command!`));
+                    hatsuInfo.info(`Execute ${command.name} Command!`);
                 } catch (e) {
-                    console.log(clr.red(`Something Wrong when try to Run ${commandName}!,Error:${e}`));
-                    console.log(clr.red(`Requested from ${msg.guild.name} With ID:${msg.guild.id}`));
-                    console.error(e);
+                    hatsuError.error(`Something Wrong when try to Run ${command.name}!,Error:${e}`);
+                    hatsuError.error(`Requested from ${msg.guild.name} With ID:${msg.guild.id}`);
+                    hatsuError.error(e);
                     exit(261);
                 }
-            } else {
-                let DBPrefix = process.env.PREFIX
-                //Set Prefix
-                if (!msg.content.startsWith(DBPrefix) || msg.author.bot ||!msg.guild) return
-                const args = msg.content.slice(DBPrefix.length).trim().split(" ");
-                //Make to LowerCase
-                const commandName = args.shift().toLowerCase();
-
-                const command =
-                    this.client.collection.get(commandName) || this.client.collection.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-                if (!command) {
-                    await msg.channel.send(`${msg.author} i Can't Find that Command!`);
-                    console.log(clr.magenta(`Cannot Find Command:"${commandName}" Requested From: ${msg.guild.name} With ID:${msg.guild.id}`));
-                    return
-                }
-
-                //Cooldowns Thing
-                if (!this.cooldowns.has(command.name)) {
-                    this.cooldowns.set(command.name, new Collection())
-                }
-                const now = Date.now();
-                const timeStamp = this.cooldowns.get(command.name);
-                const coolAmount = (command.cooldown || 1) * 1000;
-
-                if (timeStamp.has(msg.author.id)) {
-                    const expire = timeStamp.get(msg.author.id) + coolAmount
-                    if (now < expire) {
-                        const remaining = (expire - now) / 1000
-                        return msg.reply(`Whoa..Whoa... its to fast!,Please wait for **${remaining.toFixed(0)}** Second, Before try to use ***${command.name}*** command again!`);
-                    }
-                }
-                timeStamp.set(msg.author.id, now);
-                setTimeout(() => timeStamp.delete(msg.author.id), coolAmount);
-                //If User Mention the Bot than Send Some Bot Information
-                try {
-                    await command.execute(msg, args);
-                    console.log(clr.blue(`Execute ${commandName} Command!`));
-                } catch (e) {
-                    console.log(clr.red(`Something Wrong when try to Run ${commandName}!,Error:${e}`));
-                    console.log(clr.red(`Requested from ${msg.guild.name} With ID:${msg.guild.id}`));
-                    console.error(e);
-                    exit(261);
-                }
-            }
         });
     }
 }

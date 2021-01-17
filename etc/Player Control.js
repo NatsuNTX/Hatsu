@@ -1,5 +1,10 @@
 //libs
 const clr = require('chalk'); //Text Color
+const hatsuLog = require('./Hatsu Logger');
+
+//Logger
+const hatsuNodeWarn = hatsuLog.getLogger("HatsuMusicWarn");
+const hatsuNodeError = hatsuLog.getLogger("HatsuMusicError")
 
 class PlayerControl {
     constructor(opts) {
@@ -21,18 +26,18 @@ class PlayerControl {
                 .catch(error => {
                     this.queue.length = 0
                     this.PlayerShutdown();
-                    console.error(error);
+                    hatsuNodeError.error(error);
                 });
         });
         //Get Error While Playing
         this.player.on('trackException', (reason) => {
-            console.log(clr.red(`Something Wrong with Track!:${reason}`));
+            hatsuNodeError.error(`Something Wrong with Track!:${reason}`);
             this.messageText.send('`Something went wrong while trying to play a track! :(`')
             this.PlayerShutdown();
         });
         for (const playerEvent of ['closed', 'error', 'nodeDisconnect']) {
             this.player.on(playerEvent, data => {
-                if (data instanceof Error || data instanceof Object) console.log(clr.yellow(data));
+                if (data instanceof Error || data instanceof Object) hatsuNodeError.error(data);
                 this.queue.length = 0;
                 this.PlayerShutdown();
             })
@@ -50,11 +55,11 @@ class PlayerControl {
     }
 
         PlayerShutdown(reason) {
-            console.log(clr.yellow(this.constructor.name, `Destroy the Player on guild ${this.guild.name} | ${this.guild.id}`));
+            hatsuNodeWarn.warn(`Destroy the Player on guild ${this.guild.name} | ${this.guild.id}`);
             if (reason) console.log(clr.yellow(this.constructor.name, reason));
             this.queue.length = 0;
             this.player.disconnect();
-            console.log(clr.yellow(this.player.constructor.name, `Destroy the Connection on guild ${this.guild.name} | ${this.guild.id}`));
+            hatsuNodeWarn.warn(`Destroy the Connection on guild ${this.guild.name} | ${this.guild.id}`);
             this.client.playCenter.delete(this.guild.id);
             this.messageText.send('END!., Hope you Enjoy the Music :slight_smile:');
         }

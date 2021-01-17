@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const clr = require('chalk');
-const {exit} = require('process')
+const {exit} = require('process');
+const hatsuLog = require('./Hatsu Logger');
+
+//Logger
+const hatsuDebug = hatsuLog.getLogger("HatsuDebug");
+const hatsuError = hatsuLog.getLogger("HatsuError");
 
 function database(databaseURI) {
     try {
@@ -11,10 +16,10 @@ function database(databaseURI) {
             autoReconnect: true
 
         });
-        return console.log(clr.green('Connected to Database'))
+        return hatsuDebug.debug('Connected to Database');
     } catch (e) {
-        console.log(clr.red('Something Wrong with Database!'));
-        console.error(clr.red(e));
+        hatsuError.error('Something Wrong with Database!');
+        hatsuError.error(e);
         exit(513);
     }
 }

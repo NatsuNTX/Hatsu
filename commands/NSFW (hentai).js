@@ -21,14 +21,14 @@ module.exports = {
                     break
                 case true:
                     //Generate Random Number Between 1 - 12
-                    const randomNum = Math.floor(Math.random() * (13 - 1) + 1);
+                    const randomNum = Math.floor(Math.random() * (10 - 1) + 1);
 
                     switch (randomNum) {
                         case 1:
                             sendBack.send('Loading ***Hentai***').then(c => {
                                 Neko.nsfw.randomHentaiGif().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -40,7 +40,7 @@ module.exports = {
                             sendBack.send('Loading ***Hentai***').then(c => {
                                 Neko.nsfw.pussy().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -48,11 +48,12 @@ module.exports = {
                                 });
                             });
                             break
+
                         case 3:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.lesbian().then(res => {
+                                Neko.nsfw.girlSoloGif().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -62,9 +63,9 @@ module.exports = {
                             break
                         case 4:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.girlSoloGif().then(res => {
+                                Neko.nsfw.girlSolo().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -74,9 +75,9 @@ module.exports = {
                             break
                         case 5:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.girlSolo().then(res => {
+                                Neko.nsfw.kitsune().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -86,9 +87,9 @@ module.exports = {
                             break
                         case 6:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.kitsune().then(res => {
+                                Neko.nsfw.holo().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -98,9 +99,9 @@ module.exports = {
                             break
                         case 7:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.kemonomimi().then(res => {
+                                Neko.nsfw.holoEro().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -110,9 +111,9 @@ module.exports = {
                             break
                         case 8:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.holo().then(res => {
+                                Neko.nsfw.eroKemonomimi().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -122,33 +123,9 @@ module.exports = {
                             break
                         case 9:
                             sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.holoEro().then(res => {
-                                    const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
-                                        color: "#2455ae",
-                                        image: {url: res.url}
-                                    });
-                                    c.edit('', {embed: h});
-                                });
-                            });
-                            break
-                        case 10:
-                            sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.eroKemonomimi().then(res => {
-                                    const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
-                                        color: "#2455ae",
-                                        image: {url: res.url}
-                                    });
-                                    c.edit('', {embed: h});
-                                });
-                            });
-                            break
-                        case 11:
-                            sendBack.send('Loading ***Hentai***').then(c => {
                                 Neko.nsfw.eroKitsune().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -156,11 +133,12 @@ module.exports = {
                                 });
                             });
                             break
+                        /*
                         case 12:
                             sendBack.send('Loading ***Hentai***').then(c => {
                                 Neko.nsfw.futanari().then(res => {
                                     const h = new hatsuEmbed({
-                                        description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                         color: "#2455ae",
                                         image: {url: res.url}
                                     });
@@ -168,6 +146,7 @@ module.exports = {
                                 });
                             });
                             break
+                         */
                     }
 
             }
@@ -179,7 +158,7 @@ module.exports = {
                    sendBack.send('Loading ***Hentai***').then(c => {
                        Neko.nsfw.hentai().then(res => {
                            const h = new hatsuEmbed({
-                               description: `${msg.author},Please dont tell my Master ok~ hihi~~`,
+                               description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
                                color: "#2455ae",
                                image: {url: res.url}
                            });

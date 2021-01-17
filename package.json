@@ -1,6 +1,6 @@
 {
   "name": "hatsuku",
-  "version": "1.16.0",
+  "version": "1.15.5",
   "description": "HEMMMMM IUUUTTTAAA",
   "main": "run.js",
   "dependencies": {
@@ -114,6 +114,7 @@
     "libsodium": "^0.7.8",
     "libsodium-wrappers": "^0.7.8",
     "lodash": "^4.17.20",
+    "log4js": "^6.3.0",
     "lru-cache": "^6.0.0",
     "media-typer": "^0.3.0",
     "memory-pager": "^1.5.0",
@@ -133,6 +134,7 @@
     "mpath": "^0.8.0",
     "mquery": "^3.2.2",
     "ms": "^2.1.2",
+    "nana-api": "^1.1.2",
     "needle": "^2.5.2",
     "negotiator": "^0.6.2",
     "nekos.life": "^2.0.7",
@@ -189,6 +191,7 @@
     "shoukaku": "^1.5.2",
     "sift": "^7.0.1",
     "signal-exit": "^3.0.3",
+    "simple-youtube-api": "^5.2.1",
     "slash": "^3.0.0",
     "sliced": "^1.0.1",
     "sparse-bitfield": "^3.0.3",
