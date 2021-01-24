@@ -8,20 +8,20 @@ const Neko = new nekos();
 module.exports = {
     name: 'hentai',
     cooldown: 6,
+    NSFW: true,
     aliases: [''],
     description: '[NSFW] Give You Hentai~',
     async execute(msg){
         //For Simple
         const sendBack = msg.channel
+        /*
+        This Method to Check if the Channel is NSFW or Not is Already Add to Command Handler
         //Check if The Channel is NSFW Channel or Not
         const isNSFW = msg.channel.nsfw
-            switch (isNSFW) {
-                case false:
-                    msg.reply("I Can't Let you use this Command in **Public** Chat :/");
-                    break
-                case true:
-                    //Generate Random Number Between 1 - 12
-                    const randomNum = Math.floor(Math.random() * (10 - 1) + 1);
+         */
+
+        //Generate Random Number Between 1 - 12
+        const randomNum = Math.floor(Math.random() * (10 - 1) + 1);
 
                     switch (randomNum) {
                         case 1:
@@ -133,38 +133,6 @@ module.exports = {
                                 });
                             });
                             break
-                        /*
-                        case 12:
-                            sendBack.send('Loading ***Hentai***').then(c => {
-                                Neko.nsfw.futanari().then(res => {
-                                    const h = new hatsuEmbed({
-                                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
-                                        color: "#2455ae",
-                                        image: {url: res.url}
-                                    });
-                                    c.edit('', {embed: h});
-                                });
-                            });
-                            break
-                         */
                     }
-
             }
-        }
 }
-
-/*
-                   //Generate & send it
-                   sendBack.send('Loading ***Hentai***').then(c => {
-                       Neko.nsfw.hentai().then(res => {
-                           const h = new hatsuEmbed({
-                               description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
-                               color: "#2455ae",
-                               image: {url: res.url}
-                           });
-                           c.edit('', {embed: h});
-                       });
-                   });
-                   break
-
-                    */

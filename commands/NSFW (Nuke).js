@@ -7,12 +7,10 @@ const nana = new nanaAPI();
 
 module.exports = {
     name: 'nuke',
+    NSFW: true,
     aliases: [""],
     description: "[NSFW]:Give you Random Nuke Code or Use Your nuke code if You Have it",
     async execute(msg, args) {
-        if (!msg.channel.nsfw) {
-            return msg.reply("I Can't Let you use this Command in **Public** Chat :/");
-        } else {
             const sendback = msg.channel
             const query = msg.content.split(' ').slice(2).join(' ');
             const mode = args[0]
@@ -38,7 +36,6 @@ module.exports = {
                 break
             }
         }
-    }
 }
 
 /* Function for Nuke Command */

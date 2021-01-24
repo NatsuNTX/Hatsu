@@ -11,50 +11,55 @@ module.exports = {
     async execute(msg, args) {
 
         //Check if the User Has Manage_Server Permission or administrator
-        if (!msg.member.permissions.has('MANAGE_GUILD') || msg.author.id != msg.guild.ownerID) return await msg.channel.send(`${msg.author} Nope... Nope... its to dangers`), await msg.channel.send(`https://tenor.com/view/nope-anime-no-gif-15075442`);
-        const prfxData = await PrefixModel.findOne({
-            GuildID: msg.guild.id
-        });
-        let currentPrf = []
+        if (msg.member.hasPermission('MANAGE_GUILD') || msg.author.id == msg.guild.ownerID) {
+            const prfxData = await PrefixModel.findOne({
+                GuildID: msg.guild.id
+            });
+            let currentPrf = []
 
-        if (!prfxData) {
-            //if No Data than Put Default Prefix to Array
-            currentPrf.push(process.env.PREFIX);
+            if (!prfxData) {
+                //if No Data than Put Default Prefix to Array
+                currentPrf.push(process.env.PREFIX);
+            } else {
+                //if found a Data than Put the Custom Prefix to Array
+                currentPrf.push(prfxData.prefix.CustomPrefix);
+            }
+            //if No Prefix is Input than Show Prefix inside "currentPrf" variable
+            if (!args[0]) return msg.channel.send(`${msg.author} Please Input The Prefix you Wanna Use!, Current Prefix is **"${currentPrf}"**`);
+
+            //if User Input More than 3 Character than tell them to not put more than 3 Character
+            if (args[0].length > 3) return msg.channel.send(`:warning: ${msg.author} You Can't Make Prefix more than 3 Character!`);
+
+            if (prfxData) {
+                await PrefixModel.findOneAndRemove({
+                    GuildID: msg.guild.id
+                });
+                await msg.channel.send(`:white_check_mark: Set the Prefix for **${msg.guild.name}** to ${args[0]}`);
+
+                let newPrefix = new PrefixModel({
+                    GuildName: msg.guild.name,
+                    prefix: {
+                        CustomPrefix: args[0],
+                    },
+                    GuildID: msg.guild.id
+                });
+                await newPrefix.save();
+            } else {
+                await msg.channel.send(`:white_check_mark: Set the Prefix for **${msg.guild.name}** to ${args[0]}`);
+
+                let newPrefix = new PrefixModel({
+                    GuildName: msg.guild.name,
+                    prefix: {
+                        CustomPrefix: args[0],
+                    },
+                    GuildID: msg.guild.id
+                });
+                await newPrefix.save();
+            }
         } else {
-            //if found a Data than Put the Custom Prefix to Array
-            currentPrf.push(prfxData.prefix.CustomPrefix);
-        }
-        //if No Prefix is Input than Show Prefix inside "currentPrf" variable
-        if (!args[0]) return msg.channel.send(`${msg.author} Please Input The Prefix you Wanna Use!, Current Prefix is **"${currentPrf}"**`);
-
-        //if User Input More than 3 Character than tell them to not put more than 3 Character
-        if (args[0].length > 3) return msg.channel.send(`:warning: ${msg.author} You Can't Make Prefix more than 3 Character!`);
-
-        if (prfxData){
-            await PrefixModel.findOneAndRemove({
-                GuildID: msg.guild.id
-            });
-            await msg.channel.send(`:white_check_mark: Set the Prefix for **${msg.guild.name}** to ${args[0]}`);
-
-            let newPrefix = new PrefixModel({
-                GuildName: msg.guild.name,
-                prefix: {
-                    CustomPrefix: args[0],
-                },
-                GuildID: msg.guild.id
-            });
-            await newPrefix.save();
-        } else {
-            await msg.channel.send(`:white_check_mark: Set the Prefix for **${msg.guild.name}** to ${args[0]}`);
-
-            let newPrefix = new PrefixModel({
-                GuildName: msg.guild.name,
-                prefix: {
-                    CustomPrefix: args[0],
-                },
-                GuildID: msg.guild.id
-            });
-            await newPrefix.save();
+            msg.channel.send(`${msg.author} Nope... Nope... its to dangers`);
+            msg.channel.send(`https://tenor.com/view/nope-anime-no-gif-15075442`);
+            return;
         }
 
 

@@ -7,14 +7,17 @@ const Neko = new nekos();
 
 
 module.exports = {
-    name: 'hentaifutanari',
+    name: 'futanari',
     aliases: ["hfutan"],
+    NSFW: true,
     description: '[NSFW]:Give Hentai Futanari',
     async execute(msg) {
         const sendBack = msg.channel
+        /*
+        This Method to Check if the Channel is NSFW or Not is Already Add to Command Handler
         //Check if The Channel is NSFW Channel or Not
-        const isNSFW = msg.channel.nsfw
-        if (isNSFW) {
+        //const isNSFW = msg.channel.nsfw
+         */
             sendBack.startTyping();
             sendBack.send('Loading ***Futanari...***').then(c => {
                 Neko.nsfw.lesbian().then(res => {
@@ -27,8 +30,5 @@ module.exports = {
                     sendBack.stopTyping();
                 });
             });
-        } else{
-            return msg.reply("I Can't Let you use this Command in **Public** Chat :/")
-        }
     }
 }

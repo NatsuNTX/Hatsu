@@ -51,6 +51,14 @@ const hatsuLog = logger.configure({
         HatsuMusicWarnConsole: {
             type: "console",
             layout: {type: "coloured"}
+        },
+        HatsuWarn: {
+            type: "file",
+            filename:  "log/hatsuku.log",
+        },
+        HatsuWarnConsole: {
+            type: "console",
+            layout: {type: "coloured"}
         }
 
     },
@@ -81,6 +89,10 @@ const hatsuLog = logger.configure({
         },
         HatsuMusicWarn: {
             appenders: ["HatsuMusicWarn", "HatsuMusicWarnConsole"],
+            level: "warn"
+        },
+        HatsuWarn: {
+            appenders: ["HatsuWarn", "HatsuWarnConsole"],
             level: "warn"
         }
     }

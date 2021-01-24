@@ -9,20 +9,20 @@ const Neko = new nekos();
 module.exports = {
     name: 'hentaineko',
     aliases: ['hneko'],
+    NSFW: true,
     cooldown: 6,
     description: '[NSFW] Give You ERONEKO',
     async execute(msg) {
         //For Simple
         const sendBack = msg.channel
+        /*
+        This Method to Check if the Channel is NSFW or Not is Already Add to Command Handler
         //Check if The Channel is NSFW Channel or Not
         const isNSFW = msg.channel.nsfw
-        switch (isNSFW) {
-            case false:
-                msg.reply("I Can't Let you use this Command in **Public** Chat :/");
-                break
-            case true:
-                //Generate Random Number Between 1 - 3
-                const randomNum = Math.floor(Math.random() * (4 - 1) + 1);
+         */
+
+        //Generate Random Number Between 1 - 3
+        const randomNum = Math.floor(Math.random() * (4 - 1) + 1);
 
                 //Execute from the Given Number
                 try {
@@ -69,5 +69,4 @@ module.exports = {
                     console.log(clr.red(`Something While trying to load a Image,${e}`));
                 }
         }
-    }
 }

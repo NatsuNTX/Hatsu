@@ -7,28 +7,28 @@ const Neko = new nekos();
 
 
 module.exports = {
-    name: 'hentaikemono',
+    name: 'kemono',
     aliases: ["hkemono"],
+    NSFW: true,
     description: '[NSFW]:Give Hentai Kemonomimi',
     async execute(msg) {
         const sendBack = msg.channel
+        /*
+        This Method to Check if the Channel is NSFW or Not is Already Add to Command Handler
         //Check if The Channel is NSFW Channel or Not
         const isNSFW = msg.channel.nsfw
-        if (isNSFW) {
-            sendBack.startTyping();
-            sendBack.send('Loading ***Hentai Kemono...***').then(c => {
-                Neko.nsfw.kemonomimi().then(res => {
-                    const h = new hatsuEmbed({
-                        description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
-                        color: "#2455ae",
-                        image: {url: res.url}
-                    });
-                    c.edit('', {embed: h});
+         */
+        sendBack.startTyping();
+        sendBack.send('Loading ***Hentai Kemono...***').then(c => {
+            Neko.nsfw.kemonomimi().then(res => {
+                const h = new hatsuEmbed({
+                    description: `${msg.author},***Please dont tell my Master ok~ hihi~~***`,
+                    color: "#2455ae",
+                    image: {url: res.url}
                 });
-                sendBack.stopTyping(true);
+                c.edit('', {embed: h});
             });
-        } else{
-            return msg.reply("I Can't Let you use this Command in **Public** Chat :/")
-        }
+            sendBack.stopTyping(true);
+        });
     }
 }
