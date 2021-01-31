@@ -42,4 +42,4 @@ If You Already Follow all Step Above,Now you Can run the Bot By typing
 ## License
 This Project Is License Under ***ISC*** meaning You can do Whatever You Want with this Code in this Project
 ## Note
-This Project is Still Under development, sooo is not 100% Completed
+This Project is ~~Still Under development, sooo is not 100% Completed~~ Completed
