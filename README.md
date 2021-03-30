@@ -1,3 +1,7 @@
+## Project Status
+***Currently This Repo is Now Abandoned due to Much Bug that I'cant Handle it<br>
+You can Still Download it but i won't recommend it because i just found some vulnerabilities in Some Dependencies<br>
+I'm still Working [Wewrite](https://github.com/NatsuX1448/Hatsu-rewrite) Everything Again but not very Active so it might be take a long time to finish the new one<br>***
 # Hatsuku
 a bot for discord made with nodejs :)
 
